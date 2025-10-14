@@ -1,7 +1,7 @@
 /*
-   @file    ISM6HG256X_HelloWorld.ino
+   @file    ISM6HG256X_6D_Orientation.ino
    @author  STMicroelectronics
-   @brief   Example to use the ISM6HG256X6D Orientation
+   @brief   Example to use the ISM6HG256X 6D Orientation.
  *******************************************************************************
    Copyright (c) 2025, STMicroelectronics
    All rights reserved.

@@ -1,7 +1,7 @@
 /*
    @file    ISM6HG256X_Tilt_Detection.ino
    @author  STMicroelectronics
-   @brief   Example to use the ISM6HG256XTilt Detection
+   @brief   Example to use the ISM6HG256X Tilt Detection.
  *******************************************************************************
    Copyright (c) 2025, STMicroelectronics
    All rights reserved.

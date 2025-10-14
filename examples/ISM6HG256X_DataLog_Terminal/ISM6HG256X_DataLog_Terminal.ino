@@ -1,7 +1,7 @@
 /*
    @file    ISM6HG256X_DataLog_Terminal.ino
    @author  STMicroelectornics
-   @brief   Example to use the ISM6HG256X inertial measurement sensor
+   @brief   Example to use the ISM6HG256X inertial measurement sensor.
  *******************************************************************************
    Copyright (c) 2025, STMicroelectronics
    All rights reserved.

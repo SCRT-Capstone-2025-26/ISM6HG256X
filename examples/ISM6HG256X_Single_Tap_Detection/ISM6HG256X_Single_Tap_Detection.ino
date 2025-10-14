@@ -1,7 +1,7 @@
 /*
    @file    ISM6HG256X_Single_Tap_Detection.ino
    @author  STMicroelectronics
-   @brief   Example to use the ISM6HG256XSingle Tap Detection
+   @brief   Example to use the ISM6HG256X Single Tap Detection.
  *******************************************************************************
    Copyright (c) 2025, STMicroelectronics
    All rights reserved.

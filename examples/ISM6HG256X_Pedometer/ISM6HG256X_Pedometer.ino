@@ -1,7 +1,7 @@
 /*
    @file    ISM6HG256X_Pedometer.ino
    @author  STMicroelectronics
-   @brief   Example to use the ISM6HG256XPedometer
+   @brief   Example to use the ISM6HG256X Pedometer.
  *******************************************************************************
    Copyright (c) 2025, STMicroelectronics
    All rights reserved.

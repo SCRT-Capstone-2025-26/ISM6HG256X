@@ -1,7 +1,7 @@
 /*
    @file    ISM6HG256X_Double_Tap_Detection.ino
    @author  STMicroelectronics
-   @brief   Example to use the ISM6HG256XDouble Tap Detection
+   @brief   Example to use the ISM6HG256X Double Tap Detection.
  *******************************************************************************
    Copyright (c) 2025, STMicroelectronics
    All rights reserved.

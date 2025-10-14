@@ -1,7 +1,7 @@
 /*
    @file    ISM6HG256X_Free_Fall_Detection.ino
    @author  STMicroelectronics
-   @brief   Example to use the ISM6HG256XFree Fall Detection
+   @brief   Example to use the ISM6HG256X Free Fall Detection.
  *******************************************************************************
    Copyright (c) 2025, STMicroelectronics
    All rights reserved.

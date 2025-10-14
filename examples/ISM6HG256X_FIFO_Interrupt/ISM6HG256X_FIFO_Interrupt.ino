@@ -1,7 +1,7 @@
 /*
-   @file    STEVAL_MEMS_FIFO_Interrupt.ino
+   @file    ISM6HG256X_FIFO_Interrupt.ino
    @author  STMicroelectronics
-   @brief   Example to use the ISM6HG256Xlibrary with FIFO status interrupts.
+   @brief   Example to use the ISM6HG256X library with FIFO in interrupt mode.
  *******************************************************************************
    Copyright (c) 2025, STMicroelectronics
    All rights reserved.

@@ -1,7 +1,7 @@
 /*
    @file    ISM6HG256X_Wake_Up_Detection.ino
    @author  STMicroelectronics
-   @brief   Example to use the ISM6HG256XWake Up Detection
+   @brief   Example to use the ISM6HG256X Wake Up Detection.
  *******************************************************************************
    Copyright (c) 2025, STMicroelectronics
    All rights reserved.
