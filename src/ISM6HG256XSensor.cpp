@@ -1082,7 +1082,7 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Enable_Wake_Up_Detection(ISM6HG256X_Se
     return ISM6HG256X_ERROR;
   }
   /* Set wake-up threshold */
-  if (Set_Wake_Up_Threshold(63) != ISM6HG256X_OK) {
+  if (Set_Wake_Up_Threshold(1, 3) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
   /* Set wake-up durantion */
@@ -1153,7 +1153,7 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Disable_Wake_Up_Detection()
     return ISM6HG256X_ERROR;
   }
   /* Reset wake-up threshold */
-  if (Set_Wake_Up_Threshold(0) != ISM6HG256X_OK) {
+  if (Set_Wake_Up_Threshold(0, 0) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
   /* Reset wake-up durantion */
@@ -1167,12 +1167,13 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Disable_Wake_Up_Detection()
 * @param  Threshold wake up detection threshold
 * @retval 0 in case of success, an error code otherwise
 */
-ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_Wake_Up_Threshold(uint32_t Threshold)
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_Wake_Up_Threshold(uint32_t Threshold, uint32_t InactivityThreshold)
 {
   ism6hg256x_act_thresholds_t wake_up_ths;
   if (ism6hg256x_act_thresholds_get(&reg_ctx, &wake_up_ths) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
+  wake_up_ths.inactivity_cfg.wu_inact_ths_w = (uint8_t)InactivityThreshold;
   wake_up_ths.threshold = (uint8_t)Threshold;
   if (ism6hg256x_act_thresholds_set(&reg_ctx, &wake_up_ths) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
@@ -1186,12 +1187,12 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_Wake_Up_Threshold(uint32_t Thresho
 */
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_Wake_Up_Duration(uint8_t Duration)
 {
-  ism6hg256x_act_wkup_time_windows_t dur_t;
-  if (ism6hg256x_act_wkup_time_windows_get(&reg_ctx, &dur_t) != ISM6HG256X_OK) {
+  ism6hg256x_act_thresholds_t wake_up_ths;
+  if (ism6hg256x_act_thresholds_get(&reg_ctx, &wake_up_ths) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
-  dur_t.shock = Duration;
-  if (ism6hg256x_act_wkup_time_windows_set(&reg_ctx, dur_t) != ISM6HG256X_OK) {
+  wake_up_ths.duration = (uint8_t)Duration;
+  if (ism6hg256x_act_thresholds_set(&reg_ctx, &wake_up_ths) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
   return ISM6HG256X_OK;

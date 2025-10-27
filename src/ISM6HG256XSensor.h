@@ -151,7 +151,7 @@ class ISM6HG256XSensor {
     ISM6HG256XStatusTypeDef Set_Free_Fall_Duration(uint8_t Duration);
     ISM6HG256XStatusTypeDef Enable_Wake_Up_Detection(ISM6HG256X_SensorIntPin_t IntPin);
     ISM6HG256XStatusTypeDef Disable_Wake_Up_Detection();
-    ISM6HG256XStatusTypeDef Set_Wake_Up_Threshold(uint32_t Threshold);
+    ISM6HG256XStatusTypeDef Set_Wake_Up_Threshold(uint32_t Threshold, uint32_t InactivityThreshold);
     ISM6HG256XStatusTypeDef Set_Wake_Up_Duration(uint8_t Duration);
     ISM6HG256XStatusTypeDef Enable_Single_Tap_Detection(ISM6HG256X_SensorIntPin_t IntPin);
     ISM6HG256XStatusTypeDef Disable_Single_Tap_Detection();
