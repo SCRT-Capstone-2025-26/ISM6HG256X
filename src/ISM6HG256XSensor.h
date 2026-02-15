@@ -185,6 +185,7 @@ class ISM6HG256XSensor {
     ISM6HG256XStatusTypeDef Set_HG_X_FullScale(int32_t FullScale);
     ISM6HG256XStatusTypeDef Get_HG_X_AxesRaw(ISM6HG256X_AxesRaw_t *Value);
     ISM6HG256XStatusTypeDef HG_X_GetAxes(ISM6HG256X_Axes_t *Acceleration);
+    ISM6HG256XStatusTypeDef Enable_SFLP();
     ISM6HG256XStatusTypeDef FIFO_Get_Num_Samples(uint16_t *NumSamples);
     ISM6HG256XStatusTypeDef FIFO_Get_Full_Status(uint8_t *Status);
     ISM6HG256XStatusTypeDef FIFO_Set_INT1_FIFO_Full(uint8_t Status);
