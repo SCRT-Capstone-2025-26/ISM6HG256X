@@ -483,9 +483,9 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_X_Axes(ISM6HG256X_Axes_t *Accelera
     return ISM6HG256X_ERROR;
   }
   /* Calculate the data. */
-  Acceleration->x = (int32_t)((float_t)((float_t)data_raw.i16bit[0] * sensitivity));
-  Acceleration->y = (int32_t)((float_t)((float_t)data_raw.i16bit[1] * sensitivity));
-  Acceleration->z = (int32_t)((float_t)((float_t)data_raw.i16bit[2] * sensitivity));
+  Acceleration->x = (float_t)data_raw.i16bit[0] * sensitivity;
+  Acceleration->y = (float_t)data_raw.i16bit[1] * sensitivity;
+  Acceleration->z = (float_t)data_raw.i16bit[2] * sensitivity;
   return ISM6HG256X_OK;
 }
 /**
@@ -1984,9 +1984,9 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::HG_X_GetAxes(ISM6HG256X_Axes_t *Accele
     return ISM6HG256X_ERROR;
   }
   /* Calculate the data. */
-  Acceleration->x = (int32_t)((float_t)((float_t)data_raw.i16bit[0] * sensitivity));
-  Acceleration->y = (int32_t)((float_t)((float_t)data_raw.i16bit[1] * sensitivity));
-  Acceleration->z = (int32_t)((float_t)((float_t)data_raw.i16bit[2] * sensitivity));
+  Acceleration->x = (float_t)data_raw.i16bit[0] * sensitivity;
+  Acceleration->y = (float_t)data_raw.i16bit[1] * sensitivity;
+  Acceleration->z = (float_t)data_raw.i16bit[2] * sensitivity;
   return ISM6HG256X_OK;
 }
 /**
@@ -2160,9 +2160,9 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::FIFO_X_Get_Axes(ISM6HG256X_Axes_t *Acc
   acceleration_float_t[0] = (float_t)data_raw.i16bit[0] * sensitivity;
   acceleration_float_t[1] = (float_t)data_raw.i16bit[1] * sensitivity;
   acceleration_float_t[2] = (float_t)data_raw.i16bit[2] * sensitivity;
-  Acceleration->x = (int32_t)acceleration_float_t[0];
-  Acceleration->y = (int32_t)acceleration_float_t[1];
-  Acceleration->z = (int32_t)acceleration_float_t[2];
+  Acceleration->x = acceleration_float_t[0];
+  Acceleration->y = acceleration_float_t[1];
+  Acceleration->z = acceleration_float_t[2];
   return ISM6HG256X_OK;
 }
 /**
@@ -2210,9 +2210,9 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::FIFO_G_Get_Axes(ISM6HG256X_Axes_t *Ang
   angular_velocity_float_t[0] = (float_t)data_raw.i16bit[0] * sensitivity;
   angular_velocity_float_t[1] = (float_t)data_raw.i16bit[1] * sensitivity;
   angular_velocity_float_t[2] = (float_t)data_raw.i16bit[2] * sensitivity;
-  AngularVelocity->x = (int32_t)angular_velocity_float_t[0];
-  AngularVelocity->y = (int32_t)angular_velocity_float_t[1];
-  AngularVelocity->z = (int32_t)angular_velocity_float_t[2];
+  AngularVelocity->x = angular_velocity_float_t[0];
+  AngularVelocity->y = angular_velocity_float_t[1];
+  AngularVelocity->z = angular_velocity_float_t[2];
   return ISM6HG256X_OK;
 }
 /**
@@ -2526,9 +2526,9 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_G_Axes(ISM6HG256X_Axes_t *AngularR
     return ISM6HG256X_ERROR;
   }
   /* Calculate the data. */
-  AngularRate->x = (int32_t)((float_t)((float_t)data_raw.i16bit[0] * sensitivity));
-  AngularRate->y = (int32_t)((float_t)((float_t)data_raw.i16bit[1] * sensitivity));
-  AngularRate->z = (int32_t)((float_t)((float_t)data_raw.i16bit[2] * sensitivity));
+  AngularRate->x = (float_t)data_raw.i16bit[0] * sensitivity;
+  AngularRate->y = (float_t)data_raw.i16bit[1] * sensitivity;
+  AngularRate->z = (float_t)data_raw.i16bit[2] * sensitivity;
   return ISM6HG256X_OK;
 }
 /**
