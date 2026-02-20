@@ -2295,19 +2295,19 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_G_Sensitivity(float_t *Sensitivity
   /* Store the sensitivity based on actual full scale. */
   switch (full_scale) {
     case ISM6HG256X_250dps:
-      *Sensitivity = ISM6HG256X_GYRO_SENSITIVITY_FS_250RADPS;
+      *Sensitivity = ISM6HG256X_GYRO_SENSITIVITY_FS_250DPS;
       break;
     case ISM6HG256X_500dps:
-      *Sensitivity = ISM6HG256X_GYRO_SENSITIVITY_FS_500RADPS;
+      *Sensitivity = ISM6HG256X_GYRO_SENSITIVITY_FS_500DPS;
       break;
     case ISM6HG256X_1000dps:
-      *Sensitivity = ISM6HG256X_GYRO_SENSITIVITY_FS_1000RADPS;
+      *Sensitivity = ISM6HG256X_GYRO_SENSITIVITY_FS_1000DPS;
       break;
     case ISM6HG256X_2000dps:
-      *Sensitivity = ISM6HG256X_GYRO_SENSITIVITY_FS_2000RADPS;
+      *Sensitivity = ISM6HG256X_GYRO_SENSITIVITY_FS_2000DPS;
       break;
     case ISM6HG256X_4000dps:
-      *Sensitivity = ISM6HG256X_GYRO_SENSITIVITY_FS_4000RADPS;
+      *Sensitivity = ISM6HG256X_GYRO_SENSITIVITY_FS_4000DPS;
       break;
     default:
       ret = ISM6HG256X_ERROR;
