@@ -2146,7 +2146,7 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::FIFO_Get_Data(uint8_t *Data)
 * @param  Acceleration FIFO raw accelero axes
 * @retval 0 in case of success, an error code otherwise
 */
-ISM6HG256XStatusTypeDef ISM6HG256XSensor::FIFO_X_Get_AxesRaw(ISM6HG256X_Axes_t *Acceleration)
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::FIFO_X_Get_AxesRaw(ISM6HG256X_AxesRaw_t *Acceleration)
 {
   ism6hg256x_axis3bit16_t data_raw;
   float_t acceleration_float_t[3];
