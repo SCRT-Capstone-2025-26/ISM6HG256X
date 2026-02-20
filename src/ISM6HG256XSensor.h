@@ -50,18 +50,18 @@
 #include "ism6hg256x_reg.h"
 /* Defines -------------------------------------------------------------------*/
 #define ISM6HG256X_ACC_SENSITIVITY_FS_2G         (0.061    * 0.001f) // Changed from original library to be in Gs since we
-#define ISM6HG256X_ACC_SENSITIVITY_FS_4G         (0.122    * 0.001f) //  we are using floats from the library anyway
+#define ISM6HG256X_ACC_SENSITIVITY_FS_4G         (0.122    * 0.001f) //  we are using floats from the library anyway (they say Gs anways)
 #define ISM6HG256X_ACC_SENSITIVITY_FS_8G         (0.244    * 0.001f)
 #define ISM6HG256X_ACC_SENSITIVITY_FS_16G        (0.488    * 0.001f)
 #define ISM6HG256X_ACC_SENSITIVITY_FS_32G        (0.976    * 0.001f)
 #define ISM6HG256X_ACC_SENSITIVITY_FS_64G        (1.952    * 0.001f)
 #define ISM6HG256X_ACC_SENSITIVITY_FS_128G       (3.904    * 0.001f)
 #define ISM6HG256X_ACC_SENSITIVITY_FS_256G       (7.808    * 0.001f)
-#define ISM6HG256X_GYRO_SENSITIVITY_FS_250DPS    (8.750    * 0.001f)
-#define ISM6HG256X_GYRO_SENSITIVITY_FS_500DPS    (17.500f  * 0.001f)
-#define ISM6HG256X_GYRO_SENSITIVITY_FS_1000DPS   (35.000f  * 0.001f)
-#define ISM6HG256X_GYRO_SENSITIVITY_FS_2000DPS   (70.000f  * 0.001f)
-#define ISM6HG256X_GYRO_SENSITIVITY_FS_4000DPS   (140.000f * 0.001f)
+#define ISM6HG256X_GYRO_SENSITIVITY_FS_250RADPS    (8.750    * DEG_TO_RAD) // Changed from original library see above
+#define ISM6HG256X_GYRO_SENSITIVITY_FS_500RADPS    (17.500f  * DEG_TO_RAD)
+#define ISM6HG256X_GYRO_SENSITIVITY_FS_1000RADPS   (35.000f  * DEG_TO_RAD)
+#define ISM6HG256X_GYRO_SENSITIVITY_FS_2000RADPS   (70.000f  * DEG_TO_RAD)
+#define ISM6HG256X_GYRO_SENSITIVITY_FS_4000RADPS   (140.000f * DEG_TO_RAD)
 /* Typedefs ------------------------------------------------------------------*/
 typedef enum {
   ISM6HG256X_OK = 0,
