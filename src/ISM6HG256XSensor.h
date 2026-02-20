@@ -62,11 +62,11 @@
 #define ISM6HG256X_ACC_SENSITIVITY_FS_64G          (1.952    * MG_TO_STD)
 #define ISM6HG256X_ACC_SENSITIVITY_FS_128G         (3.904    * MG_TO_STD)
 #define ISM6HG256X_ACC_SENSITIVITY_FS_256G         (7.808    * MG_TO_STD)
-#define ISM6HG256X_GYRO_SENSITIVITY_FS_250DPS      (8.750    * DEG_TO_RAD) // Changed from original library to rad/s see above
-#define ISM6HG256X_GYRO_SENSITIVITY_FS_500DPS      (17.500f  * DEG_TO_RAD)
-#define ISM6HG256X_GYRO_SENSITIVITY_FS_1000DPS     (35.000f  * DEG_TO_RAD)
-#define ISM6HG256X_GYRO_SENSITIVITY_FS_2000DPS     (70.000f  * DEG_TO_RAD)
-#define ISM6HG256X_GYRO_SENSITIVITY_FS_4000DPS     (140.000f * DEG_TO_RAD)
+#define ISM6HG256X_GYRO_SENSITIVITY_FS_250DPS      (8.750    * 0.001f * DEG_TO_RAD) // Changed from original library to rad/s see above
+#define ISM6HG256X_GYRO_SENSITIVITY_FS_500DPS      (17.500f  * 0.001f * DEG_TO_RAD)
+#define ISM6HG256X_GYRO_SENSITIVITY_FS_1000DPS     (35.000f  * 0.001f * DEG_TO_RAD)
+#define ISM6HG256X_GYRO_SENSITIVITY_FS_2000DPS     (70.000f  * 0.001f * DEG_TO_RAD)
+#define ISM6HG256X_GYRO_SENSITIVITY_FS_4000DPS     (140.000f * 0.001f * DEG_TO_RAD)
 /* Typedefs ------------------------------------------------------------------*/
 typedef enum {
   ISM6HG256X_OK = 0,
@@ -199,8 +199,10 @@ class ISM6HG256XSensor {
     ISM6HG256XStatusTypeDef FIFO_Set_Mode(uint8_t Mode);
     ISM6HG256XStatusTypeDef FIFO_Get_Tag(uint8_t *Tag);
     ISM6HG256XStatusTypeDef FIFO_Get_Data(uint8_t *Data);
+    ISM6HG256XStatusTypeDef FIFO_X_Get_AxesRaw(ISM6HG256X_AxesRaw_t *Acceleration);
     ISM6HG256XStatusTypeDef FIFO_X_Get_Axes(ISM6HG256X_Axes_t *Acceleration);
     ISM6HG256XStatusTypeDef FIFO_X_Set_BDR(float_t Bdr);
+    ISM6HG256XStatusTypeDef FIFO_G_Get_AxesRaw(ISM6HG256X_AxesRaw_t *AngularVelocity);
     ISM6HG256XStatusTypeDef FIFO_G_Get_Axes(ISM6HG256X_Axes_t *AngularVelocity);
     ISM6HG256XStatusTypeDef FIFO_G_Set_BDR(float_t Bdr);
     ISM6HG256XStatusTypeDef Enable_G();
