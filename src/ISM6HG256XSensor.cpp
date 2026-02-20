@@ -483,9 +483,9 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_X_Axes(ISM6HG256X_Axes_t *Accelera
     return ISM6HG256X_ERROR;
   }
   /* Calculate the data. */
-  Acceleration->x = (int32_t)((float_t)((float_t)data_raw.i16bit[0] * sensitivity));
-  Acceleration->y = (int32_t)((float_t)((float_t)data_raw.i16bit[1] * sensitivity));
-  Acceleration->z = (int32_t)((float_t)((float_t)data_raw.i16bit[2] * sensitivity));
+  Acceleration->x = (float_t)data_raw.i16bit[0] * sensitivity;
+  Acceleration->y = (float_t)data_raw.i16bit[1] * sensitivity;
+  Acceleration->z = (float_t)data_raw.i16bit[2] * sensitivity;
   return ISM6HG256X_OK;
 }
 /**
@@ -1984,9 +1984,9 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::HG_X_GetAxes(ISM6HG256X_Axes_t *Accele
     return ISM6HG256X_ERROR;
   }
   /* Calculate the data. */
-  Acceleration->x = (int32_t)((float_t)((float_t)data_raw.i16bit[0] * sensitivity));
-  Acceleration->y = (int32_t)((float_t)((float_t)data_raw.i16bit[1] * sensitivity));
-  Acceleration->z = (int32_t)((float_t)((float_t)data_raw.i16bit[2] * sensitivity));
+  Acceleration->x = (float_t)data_raw.i16bit[0] * sensitivity;
+  Acceleration->y = (float_t)data_raw.i16bit[1] * sensitivity;
+  Acceleration->z = (float_t)data_raw.i16bit[2] * sensitivity;
   return ISM6HG256X_OK;
 }
 /**
@@ -2142,8 +2142,25 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::FIFO_Get_Data(uint8_t *Data)
   return ISM6HG256X_OK;
 }
 /**
-* @brief  Get the ISM6HG256X FIFO accelero single sample (16-bit data per 3 axes) and calculate acceleration [mg]
-* @param  Acceleration FIFO accelero axes [mg]
+* @brief  Get the ISM6HG256X FIFO accelero single sample (16-bit data per 3 axes)
+* @param  Acceleration FIFO raw accelero axes
+* @retval 0 in case of success, an error code otherwise
+*/
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::FIFO_X_Get_AxesRaw(ISM6HG256X_AxesRaw_t *Acceleration)
+{
+  ism6hg256x_axis3bit16_t data_raw;
+  float_t acceleration_float_t[3];
+  if (FIFO_Get_Data(data_raw.u8bit) != ISM6HG256X_OK) {
+    return ISM6HG256X_ERROR;
+  }
+  Acceleration->x = data_raw.i16bit[0];
+  Acceleration->y = data_raw.i16bit[1];
+  Acceleration->z = data_raw.i16bit[2];
+  return ISM6HG256X_OK;
+}
+/**
+* @brief  Get the ISM6HG256X FIFO accelero single sample (16-bit data per 3 axes) and calculate acceleration [Newton/kg]
+* @param  Acceleration FIFO accelero axes [Newton/kg]
 * @retval 0 in case of success, an error code otherwise
 */
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::FIFO_X_Get_Axes(ISM6HG256X_Axes_t *Acceleration)
@@ -2160,9 +2177,9 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::FIFO_X_Get_Axes(ISM6HG256X_Axes_t *Acc
   acceleration_float_t[0] = (float_t)data_raw.i16bit[0] * sensitivity;
   acceleration_float_t[1] = (float_t)data_raw.i16bit[1] * sensitivity;
   acceleration_float_t[2] = (float_t)data_raw.i16bit[2] * sensitivity;
-  Acceleration->x = (int32_t)acceleration_float_t[0];
-  Acceleration->y = (int32_t)acceleration_float_t[1];
-  Acceleration->z = (int32_t)acceleration_float_t[2];
+  Acceleration->x = acceleration_float_t[0];
+  Acceleration->y = acceleration_float_t[1];
+  Acceleration->z = acceleration_float_t[2];
   return ISM6HG256X_OK;
 }
 /**
@@ -2192,8 +2209,24 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::FIFO_X_Set_BDR(float_t Bdr)
   return ISM6HG256X_OK;
 }
 /**
-* @brief  Get the ISM6HG256X FIFO gyro single sample (16-bit data per 3 axes) and calculate angular velocity [mDPS]
-* @param  AngularVelocity FIFO gyro axes [mDPS]
+* @brief  Get the ISM6HG256X FIFO gyro single sample (16-bit data per 3 axes)
+* @param  AngularVelocity FIFO raw gyro axes
+* @retval 0 in case of success, an error code otherwise
+*/
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::FIFO_G_Get_AxesRaw(ISM6HG256X_AxesRaw_t *AngularVelocity)
+{
+  ism6hg256x_axis3bit16_t data_raw;
+  if (FIFO_Get_Data(data_raw.u8bit) != ISM6HG256X_OK) {
+    return ISM6HG256X_ERROR;
+  }
+  AngularVelocity->x = data_raw.i16bit[0];
+  AngularVelocity->y = data_raw.i16bit[1];
+  AngularVelocity->z = data_raw.i16bit[2];
+  return ISM6HG256X_OK;
+}
+/**
+* @brief  Get the ISM6HG256X FIFO gyro single sample (16-bit data per 3 axes) and calculate angular velocity [rad/s]
+* @param  AngularVelocity FIFO gyro axes [rad/s]
 * @retval 0 in case of success, an error code otherwise
 */
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::FIFO_G_Get_Axes(ISM6HG256X_Axes_t *AngularVelocity)
@@ -2210,9 +2243,9 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::FIFO_G_Get_Axes(ISM6HG256X_Axes_t *Ang
   angular_velocity_float_t[0] = (float_t)data_raw.i16bit[0] * sensitivity;
   angular_velocity_float_t[1] = (float_t)data_raw.i16bit[1] * sensitivity;
   angular_velocity_float_t[2] = (float_t)data_raw.i16bit[2] * sensitivity;
-  AngularVelocity->x = (int32_t)angular_velocity_float_t[0];
-  AngularVelocity->y = (int32_t)angular_velocity_float_t[1];
-  AngularVelocity->z = (int32_t)angular_velocity_float_t[2];
+  AngularVelocity->x = angular_velocity_float_t[0];
+  AngularVelocity->y = angular_velocity_float_t[1];
+  AngularVelocity->z = angular_velocity_float_t[2];
   return ISM6HG256X_OK;
 }
 /**
@@ -2526,9 +2559,9 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_G_Axes(ISM6HG256X_Axes_t *AngularR
     return ISM6HG256X_ERROR;
   }
   /* Calculate the data. */
-  AngularRate->x = (int32_t)((float_t)((float_t)data_raw.i16bit[0] * sensitivity));
-  AngularRate->y = (int32_t)((float_t)((float_t)data_raw.i16bit[1] * sensitivity));
-  AngularRate->z = (int32_t)((float_t)((float_t)data_raw.i16bit[2] * sensitivity));
+  AngularRate->x = (float_t)data_raw.i16bit[0] * sensitivity;
+  AngularRate->y = (float_t)data_raw.i16bit[1] * sensitivity;
+  AngularRate->z = (float_t)data_raw.i16bit[2] * sensitivity;
   return ISM6HG256X_OK;
 }
 /**
