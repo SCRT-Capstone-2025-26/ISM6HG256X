@@ -52,8 +52,8 @@
 // No idea where these are in the datasheet
 #define GYRO_TAG   1
 #define ACC_TAG    2
-// Why is this 23 lol
-#define ACC_HG_TAG 23
+// Why is this 29 lol
+#define ACC_HG_TAG 29
 
 // The datasheet doesn't say what they define as a g, but ISO says 9.80665
 #define MG_TO_STD 0.001f * 9.80665f
