@@ -2058,6 +2058,18 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_SFLP_Game_Rotation(ism6hg256x_quat
   return ISM6HG256X_OK;
 }
 /**
+* @brief  Gets raw gravity components (X, Y, Z) from SFLP
+* @param  Gravity raw gravity components
+* @retval 0 in case of success, an error code otherwise
+*/
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_SFLP_Gravity_Raw(int16_t *GravityRaw) {
+  if (ism6hg256x_sflp_gravity_raw_get(&reg_ctx, GravityRaw) != ISM6HG256X_OK) {
+    return ISM6HG256X_ERROR;
+  }
+
+  return ISM6HG256X_OK;
+}
+/**
 * @brief  Get the ISM6HG256X FIFO number of samples
 * @param  NumSamples number of samples
 * @retval 0 in case of success, an error code otherwise
