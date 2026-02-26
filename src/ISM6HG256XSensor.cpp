@@ -2050,8 +2050,8 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Disable_SFLP() {
 * @param  quat game rotation quaternion
 * @retval 0 in case of success, an error code otherwise
 */
-ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_SFLP_Game_Rotation(ism6hg256x_quaternion_t *quat) {
-  if (ism6hg256x_sflp_quaternion_get(&reg_ctx, quat) != ISM6HG256X_OK) {
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_SFLP_Game_Rotation(ism6hg256x_quaternion_t *Quat) {
+  if (ism6hg256x_sflp_quaternion_get(&reg_ctx, Quat) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
 
