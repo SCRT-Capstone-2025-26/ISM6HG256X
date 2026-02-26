@@ -2046,6 +2046,18 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Disable_SFLP() {
   return ISM6HG256X_OK;
 }
 /**
+* @brief  Gets game rotation quaternion from SFLP
+* @param  quat game rotation quaternion
+* @retval 0 in case of success, an error code otherwise
+*/
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_SFLP_Game_Rotation(ism6hg256x_quaternion_t *quat) {
+  if (ism6hg256x_sflp_quaternion_get(&reg_ctx, quat) != ISM6HG256X_OK) {
+    return ISM6HG256X_ERROR;
+  }
+
+  return ISM6HG256X_OK;
+}
+/**
 * @brief  Get the ISM6HG256X FIFO number of samples
 * @param  NumSamples number of samples
 * @retval 0 in case of success, an error code otherwise
