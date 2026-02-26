@@ -49,6 +49,12 @@
 #include "SPI.h"
 #include "ism6hg256x_reg.h"
 
+// No idea where these are in the datasheet
+#define GYRO_TAG   1
+#define ACC_TAG    2
+// Why is this 23 lol
+#define ACC_HG_TAG 23
+
 // The datasheet doesn't say what they define as a g, but ISO says 9.80665
 #define MG_TO_STD 0.001f * 9.80665f
 
@@ -199,10 +205,10 @@ class ISM6HG256XSensor {
     ISM6HG256XStatusTypeDef FIFO_Set_Mode(uint8_t Mode);
     ISM6HG256XStatusTypeDef FIFO_Get_Tag(uint8_t *Tag);
     ISM6HG256XStatusTypeDef FIFO_Get_Data(uint8_t *Data);
-    ISM6HG256XStatusTypeDef FIFO_X_Get_AxesRaw(ISM6HG256X_AxesRaw_t *Acceleration);
     ISM6HG256XStatusTypeDef FIFO_X_Get_Axes(ISM6HG256X_Axes_t *Acceleration);
+    ISM6HG256XStatusTypeDef FIFO_HG_X_Get_Axes(ISM6HG256X_Axes_t *Acceleration);
     ISM6HG256XStatusTypeDef FIFO_X_Set_BDR(float_t Bdr);
-    ISM6HG256XStatusTypeDef FIFO_G_Get_AxesRaw(ISM6HG256X_AxesRaw_t *AngularVelocity);
+    ISM6HG256XStatusTypeDef FIFO_Set_HG(bool enabled);
     ISM6HG256XStatusTypeDef FIFO_G_Get_Axes(ISM6HG256X_Axes_t *AngularVelocity);
     ISM6HG256XStatusTypeDef FIFO_G_Set_BDR(float_t Bdr);
     ISM6HG256XStatusTypeDef Enable_G();
