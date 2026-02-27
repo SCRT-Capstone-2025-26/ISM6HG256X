@@ -1994,24 +1994,7 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::HG_X_GetAxes(ISM6HG256X_Axes_t *Accele
 * @retval 0 in case of success, an error code otherwise
 */
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::Enable_SFLP() {
-  ism6hg256x_emb_func_en_a_t emb_func_en_a;
-
-  /* Enable access to embedded function registers */
-  if (ism6hg256x_mem_bank_set(&reg_ctx, ISM6HG256X_EMBED_FUNC_MEM_BANK) != ISM6HG256X_OK) {
-    return ISM6HG256X_ERROR;
-  }
-
-  /* Enable sensor fusion low power */
-  if (ism6hg256x_read_reg(&reg_ctx, ISM6HG256X_EMB_FUNC_EN_A, (uint8_t *)&emb_func_en_a, 1) != ISM6HG256X_OK) {
-    return ISM6HG256X_ERROR;
-  }
-  emb_func_en_a.sflp_game_en = PROPERTY_ENABLE;
-  if (ism6hg256x_write_reg(&reg_ctx, ISM6HG256X_EMB_FUNC_EN_A, (uint8_t *)&emb_func_en_a, 1) != ISM6HG256X_OK) {
-    return ISM6HG256X_ERROR;
-  }
-
-  /* Switch back to main memory bank */
-  if (ism6hg256x_mem_bank_set(&reg_ctx, ISM6HG256X_MAIN_MEM_BANK) != ISM6HG256X_OK) {
+  if (ism6hg256x_sflp_game_rotation_set(&reg_ctx, PROPERTY_ENABLE) != 0) {
     return ISM6HG256X_ERROR;
   }
 
@@ -2022,24 +2005,7 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Enable_SFLP() {
 * @retval 0 in case of success, an error code otherwise
 */
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::Disable_SFLP() {
-  ism6hg256x_emb_func_en_a_t emb_func_en_a;
-
-  /* Enable access to embedded function registers */
-  if (ism6hg256x_mem_bank_set(&reg_ctx, ISM6HG256X_EMBED_FUNC_MEM_BANK) != ISM6HG256X_OK) {
-    return ISM6HG256X_ERROR;
-  }
-
-  /* Disable sensor fusion low power */
-  if (ism6hg256x_read_reg(&reg_ctx, ISM6HG256X_EMB_FUNC_EN_A, (uint8_t *)&emb_func_en_a, 1) != ISM6HG256X_OK) {
-    return ISM6HG256X_ERROR;
-  }
-  emb_func_en_a.sflp_game_en = PROPERTY_DISABLE;
-  if (ism6hg256x_write_reg(&reg_ctx, ISM6HG256X_EMB_FUNC_EN_A, (uint8_t *)&emb_func_en_a, 1) != ISM6HG256X_OK) {
-    return ISM6HG256X_ERROR;
-  }
-
-  /* Switch back to main memory bank */
-  if (ism6hg256x_mem_bank_set(&reg_ctx, ISM6HG256X_MAIN_MEM_BANK) != ISM6HG256X_OK) {
+  if (ism6hg256x_sflp_game_rotation_set(&reg_ctx, PROPERTY_DISABLE) != 0) {
     return ISM6HG256X_ERROR;
   }
 
