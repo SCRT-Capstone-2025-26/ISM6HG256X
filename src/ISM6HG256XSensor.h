@@ -48,20 +48,31 @@
 #include "Wire.h"
 #include "SPI.h"
 #include "ism6hg256x_reg.h"
+
+// No idea where these are in the datasheet
+#define GYRO_TAG   1
+#define ACC_TAG    2
+// Why is this 29 lol
+#define ACC_HG_TAG 29
+
+// The datasheet doesn't say what they define as a g, but ISO says 9.80665
+#define MG_TO_STD 0.001f * 9.80665f
+
+// These shouldn't really be used in place of actually calibrating the accelerometer and just using the raw values
 /* Defines -------------------------------------------------------------------*/
-#define ISM6HG256X_ACC_SENSITIVITY_FS_2G    0.061f
-#define ISM6HG256X_ACC_SENSITIVITY_FS_4G    0.122f
-#define ISM6HG256X_ACC_SENSITIVITY_FS_8G    0.244f
-#define ISM6HG256X_ACC_SENSITIVITY_FS_16G   0.488f
-#define ISM6HG256X_ACC_SENSITIVITY_FS_32G   0.976f
-#define ISM6HG256X_ACC_SENSITIVITY_FS_64G   1.952f
-#define ISM6HG256X_ACC_SENSITIVITY_FS_128G  3.904f
-#define ISM6HG256X_ACC_SENSITIVITY_FS_256G  7.808f
-#define ISM6HG256X_GYRO_SENSITIVITY_FS_250DPS     8.750f
-#define ISM6HG256X_GYRO_SENSITIVITY_FS_500DPS    17.500f
-#define ISM6HG256X_GYRO_SENSITIVITY_FS_1000DPS   35.000f
-#define ISM6HG256X_GYRO_SENSITIVITY_FS_2000DPS   70.000f
-#define ISM6HG256X_GYRO_SENSITIVITY_FS_4000DPS  140.000f
+#define ISM6HG256X_ACC_SENSITIVITY_FS_2G           (0.061    * MG_TO_STD) // Changed from original library to be in Newtons/kg since we
+#define ISM6HG256X_ACC_SENSITIVITY_FS_4G           (0.122    * MG_TO_STD) //  we are using floats from the library anyway
+#define ISM6HG256X_ACC_SENSITIVITY_FS_8G           (0.244    * MG_TO_STD)
+#define ISM6HG256X_ACC_SENSITIVITY_FS_16G          (0.488    * MG_TO_STD)
+#define ISM6HG256X_ACC_SENSITIVITY_FS_32G          (0.976    * MG_TO_STD)
+#define ISM6HG256X_ACC_SENSITIVITY_FS_64G          (1.952    * MG_TO_STD)
+#define ISM6HG256X_ACC_SENSITIVITY_FS_128G         (3.904    * MG_TO_STD)
+#define ISM6HG256X_ACC_SENSITIVITY_FS_256G         (7.808    * MG_TO_STD)
+#define ISM6HG256X_GYRO_SENSITIVITY_FS_250DPS      (8.750    * 0.001f * DEG_TO_RAD) // Changed from original library to rad/s see above
+#define ISM6HG256X_GYRO_SENSITIVITY_FS_500DPS      (17.500f  * 0.001f * DEG_TO_RAD)
+#define ISM6HG256X_GYRO_SENSITIVITY_FS_1000DPS     (35.000f  * 0.001f * DEG_TO_RAD)
+#define ISM6HG256X_GYRO_SENSITIVITY_FS_2000DPS     (70.000f  * 0.001f * DEG_TO_RAD)
+#define ISM6HG256X_GYRO_SENSITIVITY_FS_4000DPS     (140.000f * 0.001f * DEG_TO_RAD)
 /* Typedefs ------------------------------------------------------------------*/
 typedef enum {
   ISM6HG256X_OK = 0,
@@ -109,9 +120,9 @@ typedef struct {
   int16_t z;
 } ISM6HG256X_AxesRaw_t;
 typedef struct {
-  int32_t x;
-  int32_t y;
-  int32_t z;
+  float_t x;
+  float_t y;
+  float_t z;
 } ISM6HG256X_Axes_t;
 typedef struct {
   unsigned int FreeFallStatus : 1;
@@ -199,7 +210,9 @@ class ISM6HG256XSensor {
     ISM6HG256XStatusTypeDef FIFO_Get_Tag(uint8_t *Tag);
     ISM6HG256XStatusTypeDef FIFO_Get_Data(uint8_t *Data);
     ISM6HG256XStatusTypeDef FIFO_X_Get_Axes(ISM6HG256X_Axes_t *Acceleration);
+    ISM6HG256XStatusTypeDef FIFO_HG_X_Get_Axes(ISM6HG256X_Axes_t *Acceleration);
     ISM6HG256XStatusTypeDef FIFO_X_Set_BDR(float_t Bdr);
+    ISM6HG256XStatusTypeDef FIFO_Set_HG(bool enabled);
     ISM6HG256XStatusTypeDef FIFO_G_Get_Axes(ISM6HG256X_Axes_t *AngularVelocity);
     ISM6HG256XStatusTypeDef FIFO_G_Set_BDR(float_t Bdr);
     ISM6HG256XStatusTypeDef Enable_G();
