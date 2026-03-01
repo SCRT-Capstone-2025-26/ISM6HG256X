@@ -10314,6 +10314,33 @@ int32_t ism6hg256x_sflp_data_rate_get(const ism6hg256x_ctx_t *ctx,
 }
 
 /**
+  * @brief  sets sflp fifo inclusion register bits
+  *
+  * @param ctx  read/write interface definitions
+  * @param val  whether to enable or disable FIFO inclusion
+  */
+int32_t ism6hg256x_sflp_fifo_set(const ism6hg256x_ctx_t *ctx, uint8_t val) {
+  int32_t ret;
+  ism6hg256x_emb_func_fifo_en_a_t sflp_fifo;
+
+  ret = ism6hg256x_mem_bank_set(ctx, ISM6HG256X_EMBED_FUNC_MEM_BANK);
+  ret += ism6hg256x_read_reg(ctx, ISM6HG256X_EMB_FUNC_FIFO_EN_A, (uint8_t *)&sflp_fifo, 1);
+
+  if (ret != 0) {
+    return ret;
+  }
+
+  sflp_fifo.sflp_game_fifo_en = val;
+  sflp_fifo.sflp_gbias_fifo_en = val;
+  sflp_fifo.sflp_gravity_fifo_en = val;
+
+  ret = ism6hg256x_write_reg(ctx, ISM6HG256X_EMB_FUNC_FIFO_EN_A, (uint8_t *)&sflp_fifo, 1);
+  ret += ism6hg256x_mem_bank_set(ctx, ISM6HG256X_MAIN_MEM_BANK);
+
+  return ret;
+}
+
+/**
   * @}
   *
   */

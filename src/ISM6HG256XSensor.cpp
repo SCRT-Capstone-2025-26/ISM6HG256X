@@ -2036,6 +2036,17 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_SFLP_Gravity_Raw(int16_t *GravityR
   return ISM6HG256X_OK;
 }
 /**
+* @brief  Enables inclusion of SFLP data in FIFO.
+* @retval 0 in case of success, an error code otherwise
+*/
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::FIFO_SFLP_Enable(void) {
+  if (ism6hg256x_sflp_fifo_set(&reg_ctx, PROPERTY_ENABLE) != ISM6HG256X_OK) {
+    return ISM6HG256X_ERROR;
+  }
+
+  return ISM6HG256X_OK;
+}
+/**
 * @brief  Get the ISM6HG256X FIFO number of samples
 * @param  NumSamples number of samples
 * @retval 0 in case of success, an error code otherwise
