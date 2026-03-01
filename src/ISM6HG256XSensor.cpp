@@ -2012,6 +2012,33 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Disable_SFLP() {
   return ISM6HG256X_OK;
 }
 /**
+* @brief  Requests reinitialization of the SFLP module.
+* @retval 0 in case of success, an error code otherwise
+*/
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::Reinitialize_SFLP(void) {
+  if (ism6hg256x_mem_bank_set(&reg_ctx, ISM6HG256X_EMBED_FUNC_MEM_BANK) != 0) {
+    return ISM6HG256X_ERROR;
+  }
+
+  ism6hg256x_emb_func_init_a_t emb_init_a;
+
+  if (ism6hg256x_read_reg(&reg_ctx, ISM6HG256X_EMB_FUNC_INIT_A, (uint8_t*)&emb_init_a, 1) != 0) {
+    return ISM6HG256X_ERROR;
+  }
+
+  emb_init_a.sflp_game_init = PROPERTY_ENABLE;
+
+  if (ism6hg256x_write_reg(&reg_ctx, ISM6HG256X_EMB_FUNC_INIT_A, (uint8_t*)&emb_init_a, 1) != 0) {
+    return ISM6HG256X_ERROR;
+  }
+
+  if (ism6hg256x_mem_bank_set(&reg_ctx, ISM6HG256X_MAIN_MEM_BANK) != 0) {
+    return ISM6HG256X_ERROR;
+  }
+
+  return ISM6HG256X_OK;
+}
+/**
 * @brief  Gets game rotation quaternion from SFLP
 * @param  Quat game rotation quaternion
 * @retval 0 in case of success, an error code otherwise
