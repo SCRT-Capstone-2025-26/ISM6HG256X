@@ -173,6 +173,41 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::ReadID(uint8_t *Id)
   return ISM6HG256X_OK;
 }
 /**
+* @brief  Enable high-accuracy ODR modes for both the accelerometer and gyroscope
+* @pre    The accelerometer and gyroscope must both be in power-down moded.
+* @retval 0 in case of success, an error code otherwise
+*/
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::Enable_High_Accuracy_Mode(void)
+{
+  uint8_t ctrl_registers[2];
+  ism6hg256x_ctrl1_t *ctrl1;
+  ism6hg256x_ctrl2_t *ctrl2;
+
+  /* error if either sensor has been enabled (powered on) already */
+  if (acc_is_enabled || gyro_is_enabled) {
+    return ISM6HG256X_ERROR;
+  }
+
+  /* read control registers */
+  if (ism6hg256x_read_reg(&reg_ctx, ISM6HG256X_CTRL1, ctrl_registers, 2) != 0) {
+    return ISM6HG256X_ERROR;
+  }
+
+  ctrl1 = (ism6hg256x_ctrl1_t *)&ctrl_registers[0];
+  ctrl2 = (ism6hg256x_ctrl2_t *)&ctrl_registers[1];
+
+  /* set high-accuracy modes for accelerometer and gyroscope */
+  ctrl1->op_mode_xl = ISM6HG256X_XL_HIGH_ACCURACY_ODR_MD;
+  ctrl2->op_mode_g = ISM6HG256X_GY_HIGH_ACCURACY_ODR_MD;
+
+  /* write back to registers */
+  if (ism6hg256x_write_reg(&reg_ctx, ISM6HG256X_CTRL1, ctrl_registers, 2) != 0) {
+    return ISM6HG256X_ERROR;
+  }
+
+  return ISM6HG256X_OK;
+}
+/**
 * @brief  Enable the ISM6HG256X accelerometer sensor
 * @retval 0 in case of success, an error code otherwise
 */
