@@ -135,6 +135,7 @@ class ISM6HG256XSensor {
     ISM6HG256XStatusTypeDef end();
     ISM6HG256XStatusTypeDef ReadID(uint8_t *Id);
     ISM6HG256XStatusTypeDef Enable_High_Accuracy_Mode(void);
+    ISM6HG256XStatusTypeDef Set_High_Accuracy_ODR_Range(ism6hg256x_haodr_sel_t sel);
     ISM6HG256XStatusTypeDef Enable_X();
     ISM6HG256XStatusTypeDef Disable_X();
     ISM6HG256XStatusTypeDef Get_X_Sensitivity(float_t *Sensitivity);

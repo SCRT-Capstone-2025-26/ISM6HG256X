@@ -215,6 +215,25 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Enable_High_Accuracy_Mode(void)
   return ISM6HG256X_OK;
 }
 /**
+* @brief  Set the high-accuracy ODR range selection
+* @pre    The gyroscope and accelerometer must be in high-accuracy mode
+* @retval 0 in case of success, an error code otherwise
+*/
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_High_Accuracy_ODR_Range(ism6hg256x_haodr_sel_t sel)
+{
+  /* error if not both of the gyro and accelerometer are in high accuracy mode */
+  if (acc_mode != ISM6HG256X_ACC_HIGH_ACCURACY_ODR_MODE || gyro_mode != ISM6HG256X_GYRO_HIGH_ACCURACY_ODR_MODE) {
+    return ISM6HG256X_ERROR;
+  }
+
+  /* write selection to register */
+  if (ism6hg256x_write_reg(&reg_ctx, ISM6HG256X_HAODR_CFG, (uint8_t *)&sel, 1) != 0) {
+    return ISM6HG256X_ERROR;
+  }
+
+  return ISM6HG256X_OK;
+}
+/**
 * @brief  Enable the ISM6HG256X accelerometer sensor
 * @retval 0 in case of success, an error code otherwise
 */

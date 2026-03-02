@@ -1384,6 +1384,13 @@ typedef struct {
 #endif /* DRV_BYTE_ORDER */
 } ism6hg256x_haodr_cfg_t;
 
+typedef enum {
+  ISM6HG256X_HAODR_SEL_00,
+  ISM6HG256X_HAODR_SEL_01,
+  ISM6HG256X_HAODR_SEL_02,
+  ISM6HG256X_HAODR_SEL_03,
+} ism6hg256x_haodr_sel_t;
+
 #define ISM6HG256X_EMB_FUNC_CFG                   0x63U
 typedef struct {
 #if DRV_BYTE_ORDER == DRV_LITTLE_ENDIAN
