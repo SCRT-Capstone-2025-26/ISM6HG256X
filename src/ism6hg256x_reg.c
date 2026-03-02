@@ -709,7 +709,10 @@ int32_t ism6hg256x_xl_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_15Hz625;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_13Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_12Hz5;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_13Hz;
           break;
       }
       break;
@@ -724,7 +727,10 @@ int32_t ism6hg256x_xl_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_31Hz25;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_26Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_25Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_26Hz;
           break;
       }
       break;
@@ -739,7 +745,10 @@ int32_t ism6hg256x_xl_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_62Hz5;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_52Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_50Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_52Hz;
           break;
       }
       break;
@@ -754,7 +763,10 @@ int32_t ism6hg256x_xl_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_125Hz;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_104Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_100Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_104Hz;
           break;
       }
       break;
@@ -769,7 +781,10 @@ int32_t ism6hg256x_xl_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_250Hz;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_208Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_200Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_208Hz;
           break;
       }
       break;
@@ -784,7 +799,10 @@ int32_t ism6hg256x_xl_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_500Hz;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_417Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_400Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_417Hz;
           break;
       }
       break;
@@ -799,7 +817,10 @@ int32_t ism6hg256x_xl_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_1000Hz;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_833Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_800Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_833Hz;
           break;
       }
       break;
@@ -814,7 +835,10 @@ int32_t ism6hg256x_xl_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_2000Hz;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_1667Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_1600Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_1667Hz;
           break;
       }
       break;
@@ -829,7 +853,10 @@ int32_t ism6hg256x_xl_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_4000Hz;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_3333Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_3200Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_3333Hz;
           break;
       }
       break;
@@ -844,7 +871,10 @@ int32_t ism6hg256x_xl_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_8000Hz;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_6667Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_6400Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_6667Hz;
           break;
       }
       break;
@@ -1090,7 +1120,10 @@ int32_t ism6hg256x_gy_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_15Hz625;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_13Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_12Hz5;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_13Hz;
           break;
       }
       break;
@@ -1105,7 +1138,10 @@ int32_t ism6hg256x_gy_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_31Hz25;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_26Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_25Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_26Hz;
           break;
       }
       break;
@@ -1120,7 +1156,10 @@ int32_t ism6hg256x_gy_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_62Hz5;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_52Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_50Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_52Hz;
           break;
       }
       break;
@@ -1135,7 +1174,10 @@ int32_t ism6hg256x_gy_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_125Hz;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_104Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_100Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_104Hz;
           break;
       }
       break;
@@ -1150,7 +1192,10 @@ int32_t ism6hg256x_gy_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_250Hz;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_208Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_200Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_208Hz;
           break;
       }
       break;
@@ -1165,7 +1210,10 @@ int32_t ism6hg256x_gy_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_500Hz;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_417Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_400Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_417Hz;
           break;
       }
       break;
@@ -1180,7 +1228,10 @@ int32_t ism6hg256x_gy_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_1000Hz;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_833Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_800Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_833Hz;
           break;
       }
       break;
@@ -1195,7 +1246,10 @@ int32_t ism6hg256x_gy_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_2000Hz;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_1667Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_1600Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_1667Hz;
           break;
       }
       break;
@@ -1210,7 +1264,10 @@ int32_t ism6hg256x_gy_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_4000Hz;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_3333Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_3200Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_3333Hz;
           break;
       }
       break;
@@ -1225,7 +1282,10 @@ int32_t ism6hg256x_gy_data_rate_get(const ism6hg256x_ctx_t *ctx,
           *val = ISM6HG256X_ODR_HA01_AT_8000Hz;
           break;
         case 2:
-          *val = ISM6HG256X_ODR_HA02_AT_6667Hz;
+          *val = ISM6HG256X_ODR_HA02_AT_6400Hz;
+          break;
+        case 3:
+          *val = ISM6HG256X_ODR_HA03_AT_6667Hz;
           break;
       }
       break;
