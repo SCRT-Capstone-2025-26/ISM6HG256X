@@ -174,7 +174,7 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::ReadID(uint8_t *Id)
 }
 /**
 * @brief  Enable high-accuracy ODR modes for both the accelerometer and gyroscope
-* @pre    The accelerometer and gyroscope must both be in power-down moded.
+* @pre    The accelerometer and gyroscope must both be in power-down mode.
 * @retval 0 in case of success, an error code otherwise
 */
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::Enable_High_Accuracy_Mode(void)
