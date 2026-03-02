@@ -311,16 +311,17 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_X_Sensitivity(float_t *Sensitivity
 */
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_X_OutputDataRate(float_t *Odr)
 {
-  ISM6HG256XStatusTypeDef ret = ISM6HG256X_OK;
   ism6hg256x_data_rate_t odr_low_level;
   /* Get current output data rate. */
   if (ism6hg256x_xl_data_rate_get(&reg_ctx, &odr_low_level) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
 
-  *Odr = ism6hg256x_data_rate_to_float(odr_low_level);
+  if (ism6hg256x_data_rate_to_float(odr_low_level, Odr) != 0) {
+    return ISM6HG256X_ERROR;
+  }
 
-  return ret;
+  return ISM6HG256X_OK;
 }
 /**
 * @brief  Set the ISM6HG256X accelerometer sensor output data rate
@@ -2342,16 +2343,17 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_G_Sensitivity(float_t *Sensitivity
 */
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_G_OutputDataRate(float_t *Odr)
 {
-  ISM6HG256XStatusTypeDef ret = ISM6HG256X_OK;
   ism6hg256x_data_rate_t odr_low_level;
   /* Get current output data rate. */
   if (ism6hg256x_gy_data_rate_get(&reg_ctx, &odr_low_level) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
 
-  *Odr = ism6hg256x_data_rate_to_float(odr_low_level);
+  if (ism6hg256x_data_rate_to_float(odr_low_level, Odr) != 0) {
+    return ISM6HG256X_ERROR;
+  }
 
-  return ret;
+  return ISM6HG256X_OK;
 }
 /**
 * @brief  Set the ISM6HG256X gyroscope sensor output data rate

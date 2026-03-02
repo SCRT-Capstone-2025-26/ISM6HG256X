@@ -1035,146 +1035,149 @@ ism6hg256x_data_rate_t ism6hg256x_float_to_data_rate(uint8_t haodr_sel, float_t 
   * @brief  Converts raw configured data rates to floats
   *
   * @param  val      the raw output data rate
-  * @retval the float representation of the data rate
+  * @param  odr      the output data rate destination
+  * @retval 0 if the conversion was successful, 1 otherwise
   */
-float_t ism6hg256x_data_rate_to_float(ism6hg256x_data_rate_t val)
+int32_t ism6hg256x_data_rate_to_float(ism6hg256x_data_rate_t val, float_t *odr)
 {
-  float_t odr = 0.0f;
+  int32_t ret = 0;
 
   switch (val) {
-    default:
     case ISM6HG256X_ODR_OFF:
-      odr = 0.0f;
+      *odr = 0.0f;
       break;
     case ISM6HG256X_ODR_AT_1Hz875:
-      odr = 1.875f;
+      *odr = 1.875f;
       break;
     case ISM6HG256X_ODR_AT_7Hz5:
-      odr = 7.5f;
+      *odr = 7.5f;
       break;
     case ISM6HG256X_ODR_AT_15Hz:
-      odr = 15.0f;
+      *odr = 15.0f;
       break;
     case ISM6HG256X_ODR_AT_30Hz:
-      odr = 30.0f;
+      *odr = 30.0f;
       break;
     case ISM6HG256X_ODR_AT_60Hz:
-      odr = 60.0f;
+      *odr = 60.0f;
       break;
     case ISM6HG256X_ODR_AT_120Hz:
-      odr = 120.0f;
+      *odr = 120.0f;
       break;
     case ISM6HG256X_ODR_AT_240Hz:
-      odr = 240.0f;
+      *odr = 240.0f;
       break;
     case ISM6HG256X_ODR_AT_480Hz:
-      odr = 480.0f;
+      *odr = 480.0f;
       break;
     case ISM6HG256X_ODR_AT_960Hz:
-      odr = 960.0f;
+      *odr = 960.0f;
       break;
     case ISM6HG256X_ODR_AT_1920Hz:
-      odr = 1920.0f;
+      *odr = 1920.0f;
       break;
     case ISM6HG256X_ODR_AT_3840Hz:
-      odr = 3840.0f;
+      *odr = 3840.0f;
       break;
     case ISM6HG256X_ODR_AT_7680Hz:
-      odr = 7680.0f;
+      *odr = 7680.0f;
       break;
     case ISM6HG256X_ODR_HA01_AT_15Hz625:
-      odr = 15.625f;
+      *odr = 15.625f;
       break;
     case ISM6HG256X_ODR_HA01_AT_31Hz25:
-      odr = 31.25f;
+      *odr = 31.25f;
       break;
     case ISM6HG256X_ODR_HA01_AT_62Hz5:
-      odr = 62.5f;
+      *odr = 62.5f;
       break;
     case ISM6HG256X_ODR_HA01_AT_125Hz:
-      odr = 125.0f;
+      *odr = 125.0f;
       break;
     case ISM6HG256X_ODR_HA01_AT_250Hz:
-      odr = 250.0f;
+      *odr = 250.0f;
       break;
     case ISM6HG256X_ODR_HA01_AT_500Hz:
-      odr = 500.0f;
+      *odr = 500.0f;
       break;
     case ISM6HG256X_ODR_HA01_AT_1000Hz:
-      odr = 1000.0f;
+      *odr = 1000.0f;
       break;
     case ISM6HG256X_ODR_HA01_AT_2000Hz:
-      odr = 2000.0f;
+      *odr = 2000.0f;
       break;
     case ISM6HG256X_ODR_HA01_AT_4000Hz:
-      odr = 4000.0f;
+      *odr = 4000.0f;
       break;
     case ISM6HG256X_ODR_HA01_AT_8000Hz:
-      odr = 8000.0f;
+      *odr = 8000.0f;
       break;
     case ISM6HG256X_ODR_HA02_AT_12Hz5:
-      odr = 12.5f;
+      *odr = 12.5f;
       break;
     case ISM6HG256X_ODR_HA02_AT_25Hz:
-      odr = 25.0f;
+      *odr = 25.0f;
       break;
     case ISM6HG256X_ODR_HA02_AT_50Hz:
-      odr = 50.0f;
+      *odr = 50.0f;
       break;
     case ISM6HG256X_ODR_HA02_AT_100Hz:
-      odr = 100.0f;
+      *odr = 100.0f;
       break;
     case ISM6HG256X_ODR_HA02_AT_200Hz:
-      odr = 200.0f;
+      *odr = 200.0f;
       break;
     case ISM6HG256X_ODR_HA02_AT_400Hz:
-      odr = 400.0f;
+      *odr = 400.0f;
       break;
     case ISM6HG256X_ODR_HA02_AT_800Hz:
-      odr = 800.0f;
+      *odr = 800.0f;
       break;
     case ISM6HG256X_ODR_HA02_AT_1600Hz:
-      odr = 1600.0f;
+      *odr = 1600.0f;
       break;
     case ISM6HG256X_ODR_HA02_AT_3200Hz:
-      odr = 3200.0f;
+      *odr = 3200.0f;
       break;
     case ISM6HG256X_ODR_HA02_AT_6400Hz:
-      odr = 6400.0f;
+      *odr = 6400.0f;
       break;
     case ISM6HG256X_ODR_HA03_AT_13Hz:
-      odr = 13.0f;
+      *odr = 13.0f;
       break;
     case ISM6HG256X_ODR_HA03_AT_26Hz:
-      odr = 26.0f;
+      *odr = 26.0f;
       break;
     case ISM6HG256X_ODR_HA03_AT_52Hz:
-      odr = 52.0f;
+      *odr = 52.0f;
       break;
     case ISM6HG256X_ODR_HA03_AT_104Hz:
-      odr = 104.0f;
+      *odr = 104.0f;
       break;
     case ISM6HG256X_ODR_HA03_AT_208Hz:
-      odr = 208.0f;
+      *odr = 208.0f;
       break;
     case ISM6HG256X_ODR_HA03_AT_417Hz:
-      odr = 417.0f;
+      *odr = 417.0f;
       break;
     case ISM6HG256X_ODR_HA03_AT_833Hz:
-      odr = 833.0f;
+      *odr = 833.0f;
       break;
     case ISM6HG256X_ODR_HA03_AT_1667Hz:
-      odr = 1667.0f;
+      *odr = 1667.0f;
       break;
     case ISM6HG256X_ODR_HA03_AT_3333Hz:
-      odr = 3333.0f;
+      *odr = 3333.0f;
       break;
     case ISM6HG256X_ODR_HA03_AT_6667Hz:
-      odr = 6667.0f;
+      *odr = 6667.0f;
+      break;
+    default:
+      ret = 1;
       break;
   }
 
-  return odr;
+  return ret;
 }
 
 /**
