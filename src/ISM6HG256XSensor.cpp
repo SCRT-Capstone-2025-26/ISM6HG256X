@@ -298,50 +298,9 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_X_OutputDataRate(float_t *Odr)
   if (ism6hg256x_xl_data_rate_get(&reg_ctx, &odr_low_level) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
-  switch (odr_low_level) {
-    case ISM6HG256X_ODR_OFF:
-      *Odr = 0.0f;
-      break;
-    case ISM6HG256X_ODR_AT_1Hz875:
-      *Odr = 1.875f;
-      break;
-    case ISM6HG256X_ODR_AT_7Hz5:
-      *Odr = 7.5f;
-      break;
-    case ISM6HG256X_ODR_AT_15Hz:
-      *Odr = 15.0f;
-      break;
-    case ISM6HG256X_ODR_AT_30Hz:
-      *Odr = 30.0f;
-      break;
-    case ISM6HG256X_ODR_AT_60Hz:
-      *Odr = 60.0f;
-      break;
-    case ISM6HG256X_ODR_AT_120Hz:
-      *Odr = 120.0f;
-      break;
-    case ISM6HG256X_ODR_AT_240Hz:
-      *Odr = 240.0f;
-      break;
-    case ISM6HG256X_ODR_AT_480Hz:
-      *Odr = 480.0f;
-      break;
-    case ISM6HG256X_ODR_AT_960Hz:
-      *Odr = 960.0f;
-      break;
-    case ISM6HG256X_ODR_AT_1920Hz:
-      *Odr = 1920.0f;
-      break;
-    case ISM6HG256X_ODR_AT_3840Hz:
-      *Odr = 3840.0f;
-      break;
-    case ISM6HG256X_ODR_AT_7680Hz:
-      *Odr = 7680.0f;
-      break;
-    default:
-      ret = ISM6HG256X_ERROR;
-      break;
-  }
+
+  *Odr = ism6hg256x_data_rate_to_float(odr_low_level);
+
   return ret;
 }
 /**
@@ -2370,47 +2329,9 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_G_OutputDataRate(float_t *Odr)
   if (ism6hg256x_gy_data_rate_get(&reg_ctx, &odr_low_level) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
-  switch (odr_low_level) {
-    case ISM6HG256X_ODR_OFF:
-      *Odr = 0.0f;
-      break;
-    case ISM6HG256X_ODR_AT_7Hz5:
-      *Odr = 7.5f;
-      break;
-    case ISM6HG256X_ODR_AT_15Hz:
-      *Odr = 15.0f;
-      break;
-    case ISM6HG256X_ODR_AT_30Hz:
-      *Odr = 30.0f;
-      break;
-    case ISM6HG256X_ODR_AT_60Hz:
-      *Odr = 60.0f;
-      break;
-    case ISM6HG256X_ODR_AT_120Hz:
-      *Odr = 120.0f;
-      break;
-    case ISM6HG256X_ODR_AT_240Hz:
-      *Odr = 240.0f;
-      break;
-    case ISM6HG256X_ODR_AT_480Hz:
-      *Odr = 480.0f;
-      break;
-    case ISM6HG256X_ODR_AT_960Hz:
-      *Odr = 960.0f;
-      break;
-    case ISM6HG256X_ODR_AT_1920Hz:
-      *Odr = 1920.0f;
-      break;
-    case ISM6HG256X_ODR_AT_3840Hz:
-      *Odr = 3840.0f;
-      break;
-    case ISM6HG256X_ODR_AT_7680Hz:
-      *Odr = 7680.0f;
-      break;
-    default:
-      ret = ISM6HG256X_ERROR;
-      break;
-  }
+
+  *Odr = ism6hg256x_data_rate_to_float(odr_low_level);
+
   return ret;
 }
 /**
