@@ -4145,6 +4145,8 @@ int32_t ism6hg256x_gy_data_rate_set(const ism6hg256x_ctx_t *ctx,
                                     ism6hg256x_data_rate_t val);
 int32_t ism6hg256x_gy_data_rate_get(const ism6hg256x_ctx_t *ctx,
                                     ism6hg256x_data_rate_t *val);
+ism6hg256x_data_rate_t ism6hg256x_float_to_data_rate(uint8_t haodr_sel,
+                                                     float_t val);
 
 typedef enum {
   ISM6HG256X_HG_XL_ODR_OFF         = 0x0,

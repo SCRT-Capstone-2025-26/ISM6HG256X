@@ -963,6 +963,74 @@ int32_t ism6hg256x_hg_xl_data_rate_get(const ism6hg256x_ctx_t *ctx,
 }
 
 /**
+  * @brief  Conversion of float output data rate to binary representation
+  *
+  * @param  ctx        read / write interface definitions
+  * @param  haodr_sel  high-accuracy ODR selection bits from HAODR_CFG register;
+  *                    should be 0 outside of high-accuracy mode
+  * @param  val        the output data rate to configure
+  */
+ism6hg256x_data_rate_t ism6hg256x_float_to_data_rate(uint8_t haodr_sel, float_t val)
+{
+  ism6hg256x_data_rate_t odr;
+  switch (haodr_sel) {
+    default:
+    case 0b00:
+      odr = (val <=    1.875f) ? ISM6HG256X_ODR_AT_1Hz875
+            : (val <=    7.5f)   ? ISM6HG256X_ODR_AT_7Hz5
+            : (val <=   15.0f)   ? ISM6HG256X_ODR_AT_15Hz
+            : (val <=   30.0f)   ? ISM6HG256X_ODR_AT_30Hz
+            : (val <=   60.0f)   ? ISM6HG256X_ODR_AT_60Hz
+            : (val <=  120.0f)   ? ISM6HG256X_ODR_AT_120Hz
+            : (val <=  240.0f)   ? ISM6HG256X_ODR_AT_240Hz
+            : (val <=  480.0f)   ? ISM6HG256X_ODR_AT_480Hz
+            : (val <=  960.0f)   ? ISM6HG256X_ODR_AT_960Hz
+            : (val <= 1920.0f)   ? ISM6HG256X_ODR_AT_1920Hz
+            : (val <= 3840.0f)   ? ISM6HG256X_ODR_AT_3840Hz
+            :                      ISM6HG256X_ODR_AT_7680Hz;
+      break;
+    case 0b01:
+      odr = (val <=   15.625f) ? ISM6HG256X_ODR_HA01_AT_15Hz625
+            : (val <=  31.25f) ? ISM6HG256X_ODR_HA01_AT_31Hz25
+            : (val <=   62.5f) ? ISM6HG256X_ODR_HA01_AT_62Hz5
+            : (val <=  125.0f) ? ISM6HG256X_ODR_HA01_AT_125Hz
+            : (val <=  250.0f) ? ISM6HG256X_ODR_HA01_AT_250Hz
+            : (val <=  500.0f) ? ISM6HG256X_ODR_HA01_AT_500Hz
+            : (val <= 1000.0f) ? ISM6HG256X_ODR_HA01_AT_1000Hz
+            : (val <= 2000.0f) ? ISM6HG256X_ODR_HA01_AT_2000Hz
+            : (val <= 4000.0f) ? ISM6HG256X_ODR_HA01_AT_4000Hz
+            :                    ISM6HG256X_ODR_HA01_AT_8000Hz;
+      break;
+    case 0b10:
+      odr = (val <=     12.5f) ? ISM6HG256X_ODR_HA02_AT_12Hz5
+            : (val <=   25.0f) ? ISM6HG256X_ODR_HA02_AT_25Hz
+            : (val <=   50.0f) ? ISM6HG256X_ODR_HA02_AT_50Hz
+            : (val <=  100.0f) ? ISM6HG256X_ODR_HA02_AT_100Hz
+            : (val <=  200.0f) ? ISM6HG256X_ODR_HA02_AT_200Hz
+            : (val <=  400.0f) ? ISM6HG256X_ODR_HA02_AT_400Hz
+            : (val <=  800.0f) ? ISM6HG256X_ODR_HA02_AT_800Hz
+            : (val <= 1600.0f) ? ISM6HG256X_ODR_HA02_AT_1600Hz
+            : (val <= 3200.0f) ? ISM6HG256X_ODR_HA02_AT_3200Hz
+            :                    ISM6HG256X_ODR_HA02_AT_6400Hz;
+      break;
+    case 0b11:
+      odr = (val <=     13.0f) ? ISM6HG256X_ODR_HA03_AT_13Hz
+            : (val <=   26.0f) ? ISM6HG256X_ODR_HA03_AT_26Hz
+            : (val <=   52.0f) ? ISM6HG256X_ODR_HA03_AT_52Hz
+            : (val <=  104.0f) ? ISM6HG256X_ODR_HA03_AT_104Hz
+            : (val <=  208.0f) ? ISM6HG256X_ODR_HA03_AT_208Hz
+            : (val <=  417.0f) ? ISM6HG256X_ODR_HA03_AT_417Hz
+            : (val <=  833.0f) ? ISM6HG256X_ODR_HA03_AT_833Hz
+            : (val <= 1667.0f) ? ISM6HG256X_ODR_HA03_AT_1667Hz
+            : (val <= 3333.0f) ? ISM6HG256X_ODR_HA03_AT_3333Hz
+            :                    ISM6HG256X_ODR_HA03_AT_6667Hz;
+      break;
+  }
+
+  return odr;
+}
+
+/**
   * @brief  Accelerometer operating mode selection.[set]
   *
   * @param  ctx      read / write interface definitions

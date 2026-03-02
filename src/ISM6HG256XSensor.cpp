@@ -51,6 +51,8 @@ ISM6HG256XSensor::ISM6HG256XSensor(TwoWire *i2c, uint8_t address) : dev_i2c(i2c)
   acc_is_enabled = 0;
   acc_hg_is_enabled = 0;
   gyro_is_enabled = 0;
+  acc_mode = ISM6HG256X_ACC_HIGH_PERFORMANCE_MODE;
+  gyro_mode = ISM6HG256X_GYRO_HIGH_PERFORMANCE_MODE;
 }
 /** Constructor
  * @param spi object of an helper class which handles the SPI peripheral
@@ -67,6 +69,8 @@ ISM6HG256XSensor::ISM6HG256XSensor(SPIClass *spi, int cs_pin, uint32_t spi_speed
   acc_is_enabled = 0;
   acc_hg_is_enabled = 0;
   gyro_is_enabled = 0;
+  acc_mode = ISM6HG256X_ACC_HIGH_PERFORMANCE_MODE;
+  gyro_mode = ISM6HG256X_GYRO_HIGH_PERFORMANCE_MODE;
 }
 /**
  * @brief  Configure the sensor in order to be used
@@ -204,6 +208,9 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Enable_High_Accuracy_Mode(void)
   if (ism6hg256x_write_reg(&reg_ctx, ISM6HG256X_CTRL1, ctrl_registers, 2) != 0) {
     return ISM6HG256X_ERROR;
   }
+
+  acc_mode = ISM6HG256X_ACC_HIGH_ACCURACY_ODR_MODE;
+  gyro_mode = ISM6HG256X_GYRO_HIGH_ACCURACY_ODR_MODE;
 
   return ISM6HG256X_OK;
 }
@@ -2740,19 +2747,15 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_X_Filter_Mode(uint8_t LowHighPassF
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_X_OutputDataRate_When_Enabled(float_t Odr)
 {
   ism6hg256x_data_rate_t new_odr;
+  uint8_t haodr_cfg = 0;
 
-  new_odr = (Odr <=    1.875f) ? ISM6HG256X_ODR_AT_1Hz875
-            : (Odr <=    7.5f)   ? ISM6HG256X_ODR_AT_7Hz5
-            : (Odr <=   15.0f)   ? ISM6HG256X_ODR_AT_15Hz
-            : (Odr <=   30.0f)   ? ISM6HG256X_ODR_AT_30Hz
-            : (Odr <=   60.0f)   ? ISM6HG256X_ODR_AT_60Hz
-            : (Odr <=  120.0f)   ? ISM6HG256X_ODR_AT_120Hz
-            : (Odr <=  240.0f)   ? ISM6HG256X_ODR_AT_240Hz
-            : (Odr <=  480.0f)   ? ISM6HG256X_ODR_AT_480Hz
-            : (Odr <=  960.0f)   ? ISM6HG256X_ODR_AT_960Hz
-            : (Odr <= 1920.0f)   ? ISM6HG256X_ODR_AT_1920Hz
-            : (Odr <= 3840.0f)   ? ISM6HG256X_ODR_AT_3840Hz
-            :                      ISM6HG256X_ODR_AT_7680Hz;
+  if (acc_mode == ISM6HG256X_ACC_HIGH_ACCURACY_ODR_MODE) {
+    if (ism6hg256x_read_reg(&reg_ctx, ISM6HG256X_HAODR_CFG, &haodr_cfg, 1) != 0) {
+      return ISM6HG256X_ERROR;
+    }
+  }
+
+  new_odr = ism6hg256x_float_to_data_rate(haodr_cfg, Odr);
 
   /* Output data rate selection. */
   if (ism6hg256x_xl_data_rate_set(&reg_ctx, new_odr) != ISM6HG256X_OK) {
@@ -2770,18 +2773,15 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_X_OutputDataRate_When_Enabled(floa
   */
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_X_OutputDataRate_When_Disabled(float_t Odr)
 {
-  acc_odr = (Odr <=    1.875f) ? ISM6HG256X_ODR_AT_1Hz875
-            : (Odr <=    7.5f)   ? ISM6HG256X_ODR_AT_7Hz5
-            : (Odr <=   15.0f)   ? ISM6HG256X_ODR_AT_15Hz
-            : (Odr <=   30.0f)   ? ISM6HG256X_ODR_AT_30Hz
-            : (Odr <=   60.0f)   ? ISM6HG256X_ODR_AT_60Hz
-            : (Odr <=  120.0f)   ? ISM6HG256X_ODR_AT_120Hz
-            : (Odr <=  240.0f)   ? ISM6HG256X_ODR_AT_240Hz
-            : (Odr <=  480.0f)   ? ISM6HG256X_ODR_AT_480Hz
-            : (Odr <=  960.0f)   ? ISM6HG256X_ODR_AT_960Hz
-            : (Odr <= 1920.0f)   ? ISM6HG256X_ODR_AT_1920Hz
-            : (Odr <= 3840.0f)   ? ISM6HG256X_ODR_AT_3840Hz
-            :                      ISM6HG256X_ODR_AT_7680Hz;
+  uint8_t haodr_cfg = 0;
+
+  if (acc_mode == ISM6HG256X_ACC_HIGH_ACCURACY_ODR_MODE) {
+    if (ism6hg256x_read_reg(&reg_ctx, ISM6HG256X_HAODR_CFG, &haodr_cfg, 1) != 0) {
+      return ISM6HG256X_ERROR;
+    }
+  }
+
+  acc_odr = ism6hg256x_float_to_data_rate(haodr_cfg, Odr);
 
   return ISM6HG256X_OK;
 }
@@ -2834,18 +2834,15 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_X_HG_OutputDataRate_When_Disabled(
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_G_OutputDataRate_When_Enabled(float_t Odr)
 {
   ism6hg256x_data_rate_t new_odr;
+  uint8_t haodr_cfg = 0;
 
-  new_odr = (Odr <=    7.5f) ? ISM6HG256X_ODR_AT_7Hz5
-            : (Odr <=   15.0f) ? ISM6HG256X_ODR_AT_15Hz
-            : (Odr <=   30.0f) ? ISM6HG256X_ODR_AT_30Hz
-            : (Odr <=   60.0f) ? ISM6HG256X_ODR_AT_60Hz
-            : (Odr <=  120.0f) ? ISM6HG256X_ODR_AT_120Hz
-            : (Odr <=  240.0f) ? ISM6HG256X_ODR_AT_240Hz
-            : (Odr <=  480.0f) ? ISM6HG256X_ODR_AT_480Hz
-            : (Odr <=  960.0f) ? ISM6HG256X_ODR_AT_960Hz
-            : (Odr <= 1920.0f) ? ISM6HG256X_ODR_AT_1920Hz
-            : (Odr <= 3840.0f) ? ISM6HG256X_ODR_AT_3840Hz
-            :                    ISM6HG256X_ODR_AT_7680Hz;
+  if (gyro_mode == ISM6HG256X_GYRO_HIGH_ACCURACY_ODR_MODE) {
+    if (ism6hg256x_read_reg(&reg_ctx, ISM6HG256X_HAODR_CFG, &haodr_cfg, 1) != 0) {
+      return ISM6HG256X_ERROR;
+    }
+  }
+
+  new_odr = ism6hg256x_float_to_data_rate(haodr_cfg, Odr);
 
   /* Output data rate selection. */
   if (ism6hg256x_gy_data_rate_set(&reg_ctx, new_odr) != ISM6HG256X_OK) {
@@ -2862,17 +2859,15 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_G_OutputDataRate_When_Enabled(floa
   */
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_G_OutputDataRate_When_Disabled(float_t Odr)
 {
-  gyro_odr = (Odr <=    7.5f) ? ISM6HG256X_ODR_AT_7Hz5
-             : (Odr <=   15.0f) ? ISM6HG256X_ODR_AT_15Hz
-             : (Odr <=   30.0f) ? ISM6HG256X_ODR_AT_30Hz
-             : (Odr <=   60.0f) ? ISM6HG256X_ODR_AT_60Hz
-             : (Odr <=  120.0f) ? ISM6HG256X_ODR_AT_120Hz
-             : (Odr <=  240.0f) ? ISM6HG256X_ODR_AT_240Hz
-             : (Odr <=  480.0f) ? ISM6HG256X_ODR_AT_480Hz
-             : (Odr <=  960.0f) ? ISM6HG256X_ODR_AT_960Hz
-             : (Odr <= 1920.0f) ? ISM6HG256X_ODR_AT_1920Hz
-             : (Odr <= 3840.0f) ? ISM6HG256X_ODR_AT_3840Hz
-             :                    ISM6HG256X_ODR_AT_7680Hz;
+  uint8_t haodr_cfg = 0;
+
+  if (gyro_mode == ISM6HG256X_GYRO_HIGH_ACCURACY_ODR_MODE) {
+    if (ism6hg256x_read_reg(&reg_ctx, ISM6HG256X_HAODR_CFG, &haodr_cfg, 1) != 0) {
+      return ISM6HG256X_ERROR;
+    }
+  }
+
+  gyro_odr = ism6hg256x_float_to_data_rate(haodr_cfg, Odr);
 
   return ISM6HG256X_OK;
 }

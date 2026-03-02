@@ -302,13 +302,15 @@ class ISM6HG256XSensor {
     uint8_t  address;
     int      cs_pin;
     uint32_t spi_speed;
-    uint8_t                       is_initialized;
-    uint8_t                       acc_is_enabled;
-    uint8_t                       acc_hg_is_enabled;
-    uint8_t                       gyro_is_enabled;
-    ism6hg256x_data_rate_t        acc_odr;
-    ism6hg256x_hg_xl_data_rate_t  acc_hg_odr;
-    ism6hg256x_data_rate_t        gyro_odr;
+    uint8_t                           is_initialized;
+    uint8_t                           acc_is_enabled;
+    uint8_t                           acc_hg_is_enabled;
+    uint8_t                           gyro_is_enabled;
+    ISM6HG256X_GYRO_Operating_Mode_t  gyro_mode;
+    ISM6HG256X_ACC_Operating_Mode_t   acc_mode;
+    ism6hg256x_data_rate_t            acc_odr;
+    ism6hg256x_hg_xl_data_rate_t      acc_hg_odr;
+    ism6hg256x_data_rate_t            gyro_odr;
     ism6hg256x_ctx_t reg_ctx;
 };
 #ifdef __cplusplus
