@@ -258,8 +258,6 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Enable_X()
 */
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::Disable_X()
 {
-  ism6hg256x_data_rate_t raw_acc_odr;
-
   /* Check if the component is already disabled */
   if (acc_is_enabled == 0U) {
     return ISM6HG256X_OK;
