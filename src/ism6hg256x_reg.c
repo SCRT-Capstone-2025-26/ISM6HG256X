@@ -1260,6 +1260,16 @@ int32_t ism6hg256x_data_rate_to_float(ism6hg256x_data_rate_t val, float_t *odr)
 }
 
 
+/**
+  * @brief  Conversion of float output data rate to binary representation for
+  *         high-g accelerometer
+  *
+  * @param  ctx        read / write interface definitions
+  * @param  haodr_sel  high-accuracy ODR selection bits from HAODR_CFG register;
+  *                    should be 0 outside of high-accuracy mode
+  * @param  val        the output data rate to configure
+  * @retval the raw output data rate
+  */
 ism6hg256x_hg_xl_data_rate_t ism6hg256x_hg_float_to_data_rate(uint8_t haodr_sel, float_t val)
 {
   ism6hg256x_hg_xl_data_rate_t odr;
@@ -1299,6 +1309,13 @@ ism6hg256x_hg_xl_data_rate_t ism6hg256x_hg_float_to_data_rate(uint8_t haodr_sel,
 }
 
 
+/**
+  * @brief  Converts raw configured data rates to floats (high-g accelerometer)
+  *
+  * @param  val      the raw (register value) output data rate
+  * @param  odr      the output data rate destination
+  * @retval 0 if the conversion was successful, 1 otherwise
+  */
 int32_t ism6hg256x_hg_xl_data_rate_to_float(ism6hg256x_hg_xl_data_rate_t val, float_t *odr)
 {
   int32_t ret = 0;
