@@ -101,7 +101,7 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::begin()
     return ISM6HG256X_ERROR;
   }
   /* Select default output data rate. */
-  acc_odr = ISM6HG256X_ODR_AT_120Hz;
+  acc_odr = 120.0f;
   /* Output data rate selection - power down. */
   if (ism6hg256x_xl_data_rate_set(&reg_ctx, ISM6HG256X_ODR_OFF) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
@@ -111,7 +111,7 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::begin()
     return ISM6HG256X_ERROR;
   }
   /* Select default output data rate. */
-  acc_hg_odr = ISM6HG256X_HG_XL_ODR_AT_480Hz;
+  acc_hg_odr = 480.0f;
   /* Output data rate selection - power down. */
   if (ism6hg256x_hg_xl_data_rate_set(&reg_ctx, ISM6HG256X_HG_XL_ODR_OFF, PROPERTY_ENABLE) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
@@ -121,7 +121,7 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::begin()
     return ISM6HG256X_ERROR;
   }
   /* Select default output data rate. */
-  gyro_odr = ISM6HG256X_ODR_AT_120Hz;
+  gyro_odr = 120.0f;
   /* Output data rate selection - power down. */
   if (ism6hg256x_gy_data_rate_set(&reg_ctx, ISM6HG256X_ODR_OFF) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
@@ -243,10 +243,12 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Enable_X()
   if (acc_is_enabled == 1U) {
     return ISM6HG256X_OK;
   }
-  /* Output data rate selection. */
-  if (ism6hg256x_xl_data_rate_set(&reg_ctx, acc_odr) != ISM6HG256X_OK) {
+
+  /* Set the configured accelerometer ODR */
+  if (Set_X_OutputDataRate(acc_odr) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
+
   acc_is_enabled = 1;
   return ISM6HG256X_OK;
 }
@@ -256,14 +258,17 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Enable_X()
 */
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::Disable_X()
 {
+  ism6hg256x_data_rate_t raw_acc_odr;
+
   /* Check if the component is already disabled */
   if (acc_is_enabled == 0U) {
     return ISM6HG256X_OK;
   }
   /* Get current output data rate. */
-  if (ism6hg256x_xl_data_rate_get(&reg_ctx, &acc_odr) != ISM6HG256X_OK) {
+  if (Get_X_OutputDataRate(&acc_odr) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
+
   /* Output data rate selection - power down. */
   if (ism6hg256x_xl_data_rate_set(&reg_ctx, ISM6HG256X_ODR_OFF) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
@@ -1805,7 +1810,7 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Enable_HG_X()
     return ISM6HG256X_OK;
   }
   /* Output data rate selection. */
-  if (ism6hg256x_hg_xl_data_rate_set(&reg_ctx, acc_hg_odr, PROPERTY_ENABLE) != ISM6HG256X_OK) {
+  if (Set_HG_X_OutputDataRate(acc_hg_odr) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
   acc_hg_is_enabled = 1;
@@ -1823,7 +1828,7 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Disable_HG_X()
     return ISM6HG256X_OK;
   }
   /* Get current output data rate. */
-  if (ism6hg256x_hg_xl_data_rate_get(&reg_ctx, &acc_hg_odr, &output_enable) != ISM6HG256X_OK) {
+  if (Get_HG_X_OutputDataRate(&acc_hg_odr) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
   /* Output data rate selection - power down. */
@@ -1873,37 +1878,18 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_HG_X_Sensitivity(float_t *Sensitiv
 */
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_HG_X_OutputDataRate(float_t *Odr)
 {
-  ISM6HG256XStatusTypeDef ret = ISM6HG256X_OK;
   ism6hg256x_hg_xl_data_rate_t odr_low_level;
   uint8_t output_enable;
   /* Get current output data rate. */
   if (ism6hg256x_hg_xl_data_rate_get(&reg_ctx, &odr_low_level, &output_enable) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
-  switch (odr_low_level) {
-    case ISM6HG256X_HG_XL_ODR_OFF:
-      *Odr = 0.0f;
-      break;
-    case ISM6HG256X_HG_XL_ODR_AT_480Hz:
-      *Odr = 480.0f;
-      break;
-    case ISM6HG256X_HG_XL_ODR_AT_960Hz:
-      *Odr = 960.0f;
-      break;
-    case ISM6HG256X_HG_XL_ODR_AT_1920Hz:
-      *Odr = 1920.0f;
-      break;
-    case ISM6HG256X_HG_XL_ODR_AT_3840Hz:
-      *Odr = 3840.0f;
-      break;
-    case ISM6HG256X_HG_XL_ODR_AT_7680Hz:
-      *Odr = 7680.0f;
-      break;
-    default:
-      ret = ISM6HG256X_ERROR;
-      break;
+
+  if (ism6hg256x_hg_data_rate_to_float(odr_low_level, Odr) != ISM6HG256X_OK) {
+    return ISM6HG256X_ERROR;
   }
-  return ret;
+
+  return ISM6HG256X_OK;
 }
 /**
 * @brief  Set the ISM6HG256X high-g accelerometer sensor output data rate
@@ -2273,7 +2259,7 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Enable_G()
     return ISM6HG256X_OK;
   }
   /* Output data rate selection. */
-  if (ism6hg256x_gy_data_rate_set(&reg_ctx, gyro_odr) != ISM6HG256X_OK) {
+  if (Set_G_OutputDataRate(gyro_odr) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
   gyro_is_enabled = 1;
@@ -2290,7 +2276,7 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Disable_G()
     return ISM6HG256X_OK;
   }
   /* Get current output data rate. */
-  if (ism6hg256x_gy_data_rate_get(&reg_ctx, &gyro_odr) != ISM6HG256X_OK) {
+  if (Get_G_OutputDataRate(&gyro_odr) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
   /* Output data rate selection - power down. */
@@ -2737,12 +2723,16 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_X_OutputDataRate_When_Disabled(flo
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_X_HG_OutputDataRate_When_Enabled(float_t Odr)
 {
   ism6hg256x_hg_xl_data_rate_t new_odr;
+  uint8_t haodr_cfg = 0;
 
-  new_odr = (Odr <=  480.0f) ? ISM6HG256X_HG_XL_ODR_AT_480Hz
-            : (Odr <=  960.0f) ? ISM6HG256X_HG_XL_ODR_AT_960Hz
-            : (Odr <= 1920.0f) ? ISM6HG256X_HG_XL_ODR_AT_1920Hz
-            : (Odr <= 3840.0f) ? ISM6HG256X_HG_XL_ODR_AT_3840Hz
-            :                    ISM6HG256X_HG_XL_ODR_AT_7680Hz;
+  /* per application note: high-g accelerometer automatically enters high-accuracy mode when both gyro and accel are configured to it */
+  if (acc_mode == ISM6HG256X_ACC_HIGH_ACCURACY_ODR_MODE && gyro_mode == ISM6HG256X_GYRO_HIGH_ACCURACY_ODR_MODE) {
+    if (ism6hg256x_read_reg(&reg_ctx, ISM6HG256X_HAODR_CFG, &haodr_cfg, 1) != 0) {
+      return ISM6HG256X_ERROR;
+    }
+  }
+
+  new_odr = ism6hg256x_hg_float_to_data_rate(haodr_cfg, acc_hg_odr);
 
   /* Output data rate selection. */
   if (ism6hg256x_hg_xl_data_rate_set(&reg_ctx, new_odr, PROPERTY_ENABLE) != ISM6HG256X_OK) {
@@ -2760,11 +2750,7 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_X_HG_OutputDataRate_When_Enabled(f
   */
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_X_HG_OutputDataRate_When_Disabled(float_t Odr)
 {
-  acc_hg_odr = (Odr <=  480.0f) ? ISM6HG256X_HG_XL_ODR_AT_480Hz
-               : (Odr <=  960.0f) ? ISM6HG256X_HG_XL_ODR_AT_960Hz
-               : (Odr <= 1920.0f) ? ISM6HG256X_HG_XL_ODR_AT_1920Hz
-               : (Odr <= 3840.0f) ? ISM6HG256X_HG_XL_ODR_AT_3840Hz
-               :                    ISM6HG256X_HG_XL_ODR_AT_7680Hz;
+  acc_hg_odr = Odr;
 
   return ISM6HG256X_OK;
 }
