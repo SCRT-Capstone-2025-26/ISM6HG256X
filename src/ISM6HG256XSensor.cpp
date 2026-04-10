@@ -1899,7 +1899,7 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_HG_X_OutputDataRate(float_t *Odr)
 */
 ISM6HG256XStatusTypeDef ISM6HG256XSensor::Set_HG_X_OutputDataRate(float_t Odr)
 {
-  if (acc_is_enabled == 1U) {
+  if (acc_hg_is_enabled == 1U) {
     return Set_X_HG_OutputDataRate_When_Enabled(Odr);
   } else {
     return Set_X_HG_OutputDataRate_When_Disabled(Odr);
