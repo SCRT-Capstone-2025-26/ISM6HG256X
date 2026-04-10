@@ -4189,7 +4189,7 @@ int32_t ism6hg256x_hg_xl_data_rate_get(const ism6hg256x_ctx_t *ctx,
                                        uint8_t *reg_out_en);
 ism6hg256x_hg_xl_data_rate_t ism6hg256x_hg_float_to_data_rate(uint8_t haodr_sel,
                                                               float_t val);
-int32_t ism6hg256x_hg_data_rate_to_float(ism6hg256x_hg_xl_data_rate_t val,
+int32_t ism6hg256x_hg_xl_data_rate_to_float(ism6hg256x_hg_xl_data_rate_t val,
                                          float_t *odr);
 
 typedef enum {

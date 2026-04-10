@@ -1883,7 +1883,7 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_HG_X_OutputDataRate(float_t *Odr)
     return ISM6HG256X_ERROR;
   }
 
-  if (ism6hg256x_hg_data_rate_to_float(odr_low_level, Odr) != ISM6HG256X_OK) {
+  if (ism6hg256x_hg_xl_data_rate_to_float(odr_low_level, Odr) != ISM6HG256X_OK) {
     return ISM6HG256X_ERROR;
   }
 
