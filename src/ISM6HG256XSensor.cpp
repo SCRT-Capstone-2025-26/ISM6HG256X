@@ -244,12 +244,14 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Enable_X()
     return ISM6HG256X_OK;
   }
 
+  acc_is_enabled = 1;
+
   /* Set the configured accelerometer ODR */
   if (Set_X_OutputDataRate(acc_odr) != ISM6HG256X_OK) {
+    acc_is_enabled = 0;
     return ISM6HG256X_ERROR;
   }
 
-  acc_is_enabled = 1;
   return ISM6HG256X_OK;
 }
 /**
@@ -1807,11 +1809,12 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Enable_HG_X()
   if (acc_hg_is_enabled == 1U) {
     return ISM6HG256X_OK;
   }
+  acc_hg_is_enabled = 1;
   /* Output data rate selection. */
   if (Set_HG_X_OutputDataRate(acc_hg_odr) != ISM6HG256X_OK) {
+    acc_hg_is_enabled = 0;
     return ISM6HG256X_ERROR;
   }
-  acc_hg_is_enabled = 1;
   return ISM6HG256X_OK;
 }
 /**
@@ -2292,11 +2295,14 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Enable_G()
   if (gyro_is_enabled == 1U) {
     return ISM6HG256X_OK;
   }
+
   /* Output data rate selection. */
+  gyro_is_enabled = 1;
   if (Set_G_OutputDataRate(gyro_odr) != ISM6HG256X_OK) {
+    gyro_is_enabled = 0;
     return ISM6HG256X_ERROR;
   }
-  gyro_is_enabled = 1;
+
   return ISM6HG256X_OK;
 }
 /**
