@@ -2063,6 +2063,18 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_SFLP_Gravity_Raw(int16_t *GravityR
   return ISM6HG256X_OK;
 }
 /**
+* @brief  Gets raw gyro bias components (X, Y, Z) from SFLP
+* @param  GyroBiasRaw raw gyro bias components
+* @retval 0 in case of success, an error code otherwise
+*/
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_SFLP_Gyro_Bias_Raw(int16_t *GyroBiasRaw) {
+  if (ism6hg256x_sflp_gbias_raw_get(&reg_ctx, GyroBiasRaw) != ISM6HG256X_OK) {
+    return ISM6HG256X_ERROR;
+  }
+
+  return ISM6HG256X_OK;
+}
+/**
 * @brief  Enables inclusion of SFLP data in FIFO.
 * @retval 0 in case of success, an error code otherwise
 */

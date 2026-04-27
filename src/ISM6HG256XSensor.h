@@ -201,6 +201,7 @@ class ISM6HG256XSensor {
     ISM6HG256XStatusTypeDef Reinitialize_SFLP(void);
     ISM6HG256XStatusTypeDef Get_SFLP_Game_Rotation(ism6hg256x_quaternion_t *Quat);
     ISM6HG256XStatusTypeDef Get_SFLP_Gravity_Raw(int16_t *GravityRaw);
+    ISM6HG256XStatusTypeDef Get_SFLP_Gyro_Bias_Raw(int16_t *GyroBiasRaw);
     ISM6HG256XStatusTypeDef FIFO_SFLP_Enable(void);
     ISM6HG256XStatusTypeDef FIFO_Get_Num_Samples(uint16_t *NumSamples);
     ISM6HG256XStatusTypeDef FIFO_Get_Full_Status(uint8_t *Status);
