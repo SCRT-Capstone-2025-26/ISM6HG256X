@@ -5320,6 +5320,8 @@ int32_t ism6hg256x_stpcnt_period_get(const ism6hg256x_ctx_t *ctx, uint16_t *val)
 int32_t ism6hg256x_sflp_game_rotation_set(const ism6hg256x_ctx_t *ctx, uint8_t val);
 int32_t ism6hg256x_sflp_game_rotation_get(const ism6hg256x_ctx_t *ctx, uint8_t *val);
 
+int32_t ism6hg256x_sflp_fifo_set(const ism6hg256x_ctx_t *ctx, uint8_t val);
+
 typedef struct {
   float_t gbias_x; /* dps */
   float_t gbias_y; /* dps */

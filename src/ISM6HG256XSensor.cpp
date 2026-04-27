@@ -1998,6 +1998,102 @@ ISM6HG256XStatusTypeDef ISM6HG256XSensor::HG_X_GetAxes(ISM6HG256X_Axes_t *Accele
   return ISM6HG256X_OK;
 }
 /**
+* @brief  Enable sensor fusion low power block
+* @retval 0 in case of success, an error code otherwise
+*/
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::Enable_SFLP() {
+  if (ism6hg256x_sflp_game_rotation_set(&reg_ctx, PROPERTY_ENABLE) != 0) {
+    return ISM6HG256X_ERROR;
+  }
+
+  return ISM6HG256X_OK;
+}
+/**
+* @brief  Disable sensor fusion low power block
+* @retval 0 in case of success, an error code otherwise
+*/
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::Disable_SFLP() {
+  if (ism6hg256x_sflp_game_rotation_set(&reg_ctx, PROPERTY_DISABLE) != 0) {
+    return ISM6HG256X_ERROR;
+  }
+
+  return ISM6HG256X_OK;
+}
+/**
+* @brief  Requests reinitialization of the SFLP module.
+* @retval 0 in case of success, an error code otherwise
+*/
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::Reinitialize_SFLP(void) {
+  if (ism6hg256x_mem_bank_set(&reg_ctx, ISM6HG256X_EMBED_FUNC_MEM_BANK) != 0) {
+    return ISM6HG256X_ERROR;
+  }
+
+  ism6hg256x_emb_func_init_a_t emb_init_a;
+
+  if (ism6hg256x_read_reg(&reg_ctx, ISM6HG256X_EMB_FUNC_INIT_A, (uint8_t*)&emb_init_a, 1) != 0) {
+    return ISM6HG256X_ERROR;
+  }
+
+  emb_init_a.sflp_game_init = PROPERTY_ENABLE;
+
+  if (ism6hg256x_write_reg(&reg_ctx, ISM6HG256X_EMB_FUNC_INIT_A, (uint8_t*)&emb_init_a, 1) != 0) {
+    return ISM6HG256X_ERROR;
+  }
+
+  if (ism6hg256x_mem_bank_set(&reg_ctx, ISM6HG256X_MAIN_MEM_BANK) != 0) {
+    return ISM6HG256X_ERROR;
+  }
+
+  return ISM6HG256X_OK;
+}
+/**
+* @brief  Gets game rotation quaternion from SFLP
+* @param  Quat game rotation quaternion
+* @retval 0 in case of success, an error code otherwise
+*/
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_SFLP_Game_Rotation(ism6hg256x_quaternion_t *Quat) {
+  if (ism6hg256x_sflp_quaternion_get(&reg_ctx, Quat) != ISM6HG256X_OK) {
+    return ISM6HG256X_ERROR;
+  }
+
+  return ISM6HG256X_OK;
+}
+/**
+* @brief  Gets raw gravity components (X, Y, Z) from SFLP
+* @param  Gravity raw gravity components
+* @retval 0 in case of success, an error code otherwise
+*/
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_SFLP_Gravity_Raw(int16_t *GravityRaw) {
+  if (ism6hg256x_sflp_gravity_raw_get(&reg_ctx, GravityRaw) != ISM6HG256X_OK) {
+    return ISM6HG256X_ERROR;
+  }
+
+  return ISM6HG256X_OK;
+}
+/**
+* @brief  Gets raw gyro bias components (X, Y, Z) from SFLP
+* @param  GyroBiasRaw raw gyro bias components
+* @retval 0 in case of success, an error code otherwise
+*/
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::Get_SFLP_Gyro_Bias_Raw(int16_t *GyroBiasRaw) {
+  if (ism6hg256x_sflp_gbias_raw_get(&reg_ctx, GyroBiasRaw) != ISM6HG256X_OK) {
+    return ISM6HG256X_ERROR;
+  }
+
+  return ISM6HG256X_OK;
+}
+/**
+* @brief  Enables inclusion of SFLP data in FIFO.
+* @retval 0 in case of success, an error code otherwise
+*/
+ISM6HG256XStatusTypeDef ISM6HG256XSensor::FIFO_SFLP_Enable(void) {
+  if (ism6hg256x_sflp_fifo_set(&reg_ctx, PROPERTY_ENABLE) != ISM6HG256X_OK) {
+    return ISM6HG256X_ERROR;
+  }
+
+  return ISM6HG256X_OK;
+}
+/**
 * @brief  Get the ISM6HG256X FIFO number of samples
 * @param  NumSamples number of samples
 * @retval 0 in case of success, an error code otherwise
